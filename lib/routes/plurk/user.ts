@@ -1,12 +1,14 @@
-import { Route, ViewType } from '@/types';
-import cache from '@/utils/cache';
-import got from '@/utils/got';
 import { load } from 'cheerio';
+
+import type { Route } from '@/types';
+import { ViewType } from '@/types';
+import got from '@/utils/got';
+
 import { baseUrl, fetchFriends, getPlurk } from './utils';
 
 export const route: Route = {
     path: '/user/:user',
-    categories: ['social-media', 'popular'],
+    categories: ['social-media'],
     view: ViewType.SocialMedia,
     example: '/plurk/user/plurkoffice',
     parameters: { user: 'User ID, can be found in URL' },
@@ -40,7 +42,7 @@ async function handler(ctx) {
     const userIds = publicPlurks.map((item) => item.user_id);
     const names = await fetchFriends(userIds);
 
-    const items = await Promise.all(publicPlurks.map((item) => getPlurk(`plurk:${item.plurk_id}`, item, names[item.user_id].display_name, cache.tryGet)));
+    const items = await Promise.all(publicPlurks.map((item) => getPlurk(`plurk:${item.plurk_id}`, item, names[item.user_id].display_name)));
 
     return {
         title: $('head title').text(),

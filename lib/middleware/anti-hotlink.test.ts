@@ -1,5 +1,5 @@
-import { describe, expect, it, vi, afterEach, afterAll } from 'vitest';
 import Parser from 'rss-parser';
+import { afterAll, afterEach, describe, expect, it, vi } from 'vitest';
 
 const parser = new Parser();
 
@@ -272,7 +272,7 @@ const testAntiHotlink = async (path, expectObj, query?: string | Record<string, 
                       .map(([key, value]) => `${key}=${value}`)
                       .join('&');
     }
-    path = path + (queryStr ? `?${queryStr}` : '');
+    path += queryStr ? `?${queryStr}` : '';
 
     const response = await app.request(path);
     const parsed = await parser.parseString(await response.text());

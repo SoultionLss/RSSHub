@@ -1,12 +1,13 @@
-import { Route } from '@/types';
+import { load } from 'cheerio';
+
+import type { Route } from '@/types';
 import cache from '@/utils/cache';
 import ofetch from '@/utils/ofetch';
-import { load } from 'cheerio';
 import { parseDate } from '@/utils/parse-date';
 
 export const route: Route = {
     path: '/topic/:topic?/:type?',
-    categories: ['new-media', 'popular'],
+    categories: ['new-media'],
     example: '/hbr/topic/Leadership/Popular',
     parameters: {
         topic: 'Topic, can be found in URL, Leadership by default',
@@ -41,7 +42,7 @@ export const route: Route = {
 | Popular | From the Store | For You |
 
 ::: tip
-  Click here to view [All Topics](https://hbr.org/topics)
+Click here to view [All Topics](https://hbr.org/topics)
 :::`,
 };
 

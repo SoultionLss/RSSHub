@@ -1,9 +1,10 @@
-import { Route } from '@/types';
-import { rootUrl, apiRootUrl, processItems, icon, image } from './util';
+import type { Route } from '@/types';
+
+import { apiRootUrl, icon, image, processItems, rootUrl } from './util';
 
 export const route: Route = {
     path: '/news',
-    categories: ['new-media', 'popular'],
+    categories: ['new-media'],
     example: '/foresightnews/news',
     parameters: {},
     features: {
@@ -26,7 +27,7 @@ export const route: Route = {
 };
 
 async function handler(ctx) {
-    const limit = ctx.req.query('limit') ? Number.parseInt(ctx.req.query('limit'), 10) : 50;
+    const limit = ctx.req.query('limit') ? Number(ctx.req.query('limit')) : 50;
 
     const apiUrl = new URL('v1/news', apiRootUrl).href;
     const currentUrl = new URL('news', rootUrl).href;
